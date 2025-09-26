@@ -9,7 +9,7 @@ interface RequestSummary {
   pending: number;
   inProgress: number;
   completed: number;
-  rejected: number;
+  notApproved: number;
 }
 
 export default function Dashboard() {
@@ -19,7 +19,7 @@ export default function Dashboard() {
     pending: 0,
     inProgress: 0,
     completed: 0,
-    rejected: 0
+    notApproved: 0
   });
   const [recentRequests, setRecentRequests] = useState<any[]>([]);
 
@@ -36,14 +36,14 @@ export default function Dashboard() {
             pending: 0,
             inProgress: 0,
             completed: 0,
-            rejected: 0
+            notApproved: 0
           };
           
           data.requests.forEach((req: any) => {
             if (req.status === 'pending') summary.pending++;
             else if (req.status === 'in-progress') summary.inProgress++;
             else if (req.status === 'completed') summary.completed++;
-            else if (req.status === 'rejected') summary.rejected++;
+            else if (req.status === 'not-approved') summary.notApproved++;
           });
           
           setRequestSummary(summary);
@@ -67,7 +67,7 @@ export default function Dashboard() {
       case 'pending': return 'bg-yellow-100 text-yellow-800';
       case 'in-progress': return 'bg-blue-100 text-blue-800';
       case 'completed': return 'bg-green-100 text-green-800';
-      case 'rejected': return 'bg-red-100 text-red-800';
+      case 'not-approved': return 'bg-amber-100 text-amber-800';
       default: return 'bg-gray-100 text-gray-800';
     }
   };
@@ -147,8 +147,8 @@ export default function Dashboard() {
                     <XCircle className="h-6 w-6" />
                   </div>
                   <div>
-                    <p className="text-gray-500 text-sm">Rejected</p>
-                    <p className="text-2xl font-bold text-gray-900">{requestSummary.rejected}</p>
+                    <p className="text-gray-500 text-sm">Not Approved</p>
+                    <p className="text-2xl font-bold text-gray-900">{requestSummary.notApproved}</p>
                   </div>
                 </div>
               </div>
